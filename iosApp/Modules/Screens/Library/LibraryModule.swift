@@ -11,18 +11,21 @@ public final class LibraryModule: ModuleProtocol {
 			self as LibraryViewProviding
 		}
 		
-        Resolver.register {
-            LibraryViewModel()
-        }
-    }
+		Resolver.register {
+			LibraryViewModel()
+		}
+	}
+}
+
+extension LibraryModule: LibraryViewProviding {
+	public func libraryView() -> AnyView {
+		LibraryView().erased
+	}
 }
 
 #if DEBUG
 extension LibraryModule {
-    public func registerAllMockedServices(mockResolver: Resolver) {
-        mockResolver.register {
-            MockLibraryViewUIModelProviding() as LibraryViewUIModelProviding
-        }
-    }
+	public func registerAllMockedServices(mockResolver: Resolver) {
+	}
 }
 #endif
